@@ -1,0 +1,5 @@
+io\antur\notes\entity\Note.class
+io\antur\notes\config\application\WebConfig.class
+io\antur\notes\controller\AppController.class
+io\antur\notes\entity\AuditableEntity.class
+io\antur\notes\config\application\WebAppInitializer.class
