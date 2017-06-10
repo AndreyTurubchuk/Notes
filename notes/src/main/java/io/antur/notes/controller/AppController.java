@@ -1,11 +1,11 @@
 package io.antur.notes.controller;
 
-//import io.antur.notes.dao.NoteDao;
+import io.antur.notes.dao.NoteDao;
 import io.antur.notes.entity.Note;
 //import io.antur.notes.service.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-//import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,15 +27,6 @@ public class AppController {
     private static final String LIST_VIEW = "noteList";
 
 
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String index(Model model) {
-        model.addAttribute("test", "my test");
-        return "index2";
-    }
-
-
-
-/*
     @Autowired
     NoteDao noteDao;
 
@@ -89,10 +80,9 @@ public class AppController {
     public
     @ResponseBody
     List<Note> notePage() {
-      List<Note> noteAll = noteDao.getAll();
-      return noteAll;
+        List<Note> noteAll = noteDao.getAll();
+        return noteAll;
     }
-*/
 
 
 
