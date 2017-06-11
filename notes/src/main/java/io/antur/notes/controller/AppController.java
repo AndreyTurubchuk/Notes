@@ -4,8 +4,11 @@ import io.antur.notes.dao.NoteDao;
 import io.antur.notes.entity.Note;
 //import io.antur.notes.service.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,10 +21,9 @@ import java.util.Date;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/noteList")
+//@RequestMapping(value = "/noteList")
 public class AppController {
     private static final String REDIRECT_TO_LIST = "redirect:/noteList/list";
-    //private static final String LIST_MAP = "/department/list";
     private static final String LIST_ADD = "noteAdd";
     private static final String LIST_EDIT = "noteEdit";
     private static final String LIST_VIEW = "noteList";
@@ -35,6 +37,27 @@ public class AppController {
         model.addAttribute("noteListAll", noteDao.getAll());
         return LIST_VIEW;
     }
+
+    @GetMapping("/first")
+    public
+    @ResponseBody
+    List<Note> getNote() {
+        return noteDao.getAll();
+    }
+
+
+    @GetMapping("/notes/{id}")
+    public ResponseEntity getNote(@PathVariable("id") Integer id) {
+
+        Note note = noteDao.getById(id);
+        if (note == null) {
+            return new ResponseEntity("No Note found for ID " + id, HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity(note, HttpStatus.OK);
+    }
+
+
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String noteAdd() {
