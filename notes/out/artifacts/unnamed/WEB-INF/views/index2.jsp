@@ -6,5 +6,6 @@
 <body>
 <h2>Hello World!</h2>
 <c:out value="${test}"/>
+<c:out value="${test}"/>
 </body>
 </html>

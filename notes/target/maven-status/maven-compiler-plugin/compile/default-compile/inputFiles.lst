@@ -3,9 +3,12 @@ C:\Java\Repo\Notes\notes\src\main\java\io\antur\notes\dao\impl\GenericDaoImpl.ja
 C:\Java\Repo\Notes\notes\src\main\java\io\antur\notes\config\db\HibernateConfig.java
 C:\Java\Repo\Notes\notes\src\main\java\io\antur\notes\config\application\WebConfig.java
 C:\Java\Repo\Notes\notes\src\main\java\io\antur\notes\dao\impl\NoteDaoImpl.java
-C:\Java\Repo\Notes\notes\src\main\java\io\antur\notes\entity\Note.java
 C:\Java\Repo\Notes\notes\src\main\java\io\antur\notes\entity\AuditableEntity.java
+C:\Java\Repo\Notes\notes\src\main\java\io\antur\notes\config\AppContext.java
+C:\Java\Repo\Notes\notes\src\main\java\io\antur\notes\entity\Person.java
+C:\Java\Repo\Notes\notes\src\main\java\io\antur\notes\service\PersonService.java
+C:\Java\Repo\Notes\notes\src\main\java\io\antur\notes\service\Impl\PersonServiceImpl.java
+C:\Java\Repo\Notes\notes\src\main\java\io\antur\notes\entity\Note.java
 C:\Java\Repo\Notes\notes\src\main\java\io\antur\notes\config\application\WebAppInitializer.java
 C:\Java\Repo\Notes\notes\src\main\java\io\antur\notes\controller\AppController.java
 C:\Java\Repo\Notes\notes\src\main\java\io\antur\notes\dao\GenericDao.java
-C:\Java\Repo\Notes\notes\src\main\java\io\antur\notes\config\AppContext.java

@@ -47,6 +47,7 @@
 <div class="container-fluid">
     <div class="table">
         <a href="${root_url}noteList/add" class="create-btn btn-danger">НОВЫЙ</a>
+        <a href="${root_url}/JSON2" class="create-btn btn-danger">JSON</a>
         <div style="display: inline-block; width: 300px; float: right; margin-top: -5px;">
             <div class="input-group">
                 <input type="text" class="form-control" id="idSearch" placeholder="Поиск">
