@@ -66,7 +66,7 @@
             <div class="form-group">
                 <div class="control-label col-sm-3"></div>
                 <a href="#" onclick="document.forms['noteForm'].submit();" class="btn-save pull-left">СОХРАНИТЬ</a>
-                <a href="/noteList/edit"
+                <a href="/"
                    class="btn-close pull-right">ЗАКРЫТЬ</a>
             </div>
         </sf:form>

@@ -41,37 +41,10 @@ public class AppController {
 
     }
 
-/*    @RequestMapping("person/random")
-    @ResponseBody
-    public Person randomPerson() {
-        return personService.getRandom();
-    }*/
-
-
     @RequestMapping("/list")
     @ResponseBody
     public List<Note> notes() {
         return noteService.getNote();
-    }
-
-/*    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String index(Model model) {
-        model.addAttribute("noteListAll", noteDao.getAll());
-        return LIST_VIEW;
-    }*/
-
-/*    @GetMapping("/first2")
-    public
-    @ResponseBody
-    List<Note> getNote() {
-        return noteDao.getAll();
-    }*/
-
-    @GetMapping("/first2")
-    public
-    @ResponseBody
-    List<Note> getNote() {
-        return noteDao.getAll();
     }
 
 /*    @GetMapping("/first3")
@@ -84,16 +57,6 @@ public class AppController {
 
         return new ResponseEntity(note, HttpStatus.OK);
     }*/
-
-    @RequestMapping("first4")
-    @ResponseBody
-    public Note randomPerson() {
-        return noteService.getNote2();
-    }
-
-
-
-
 
 /*    @GetMapping("/notes/{id}")
     public ResponseEntity getNote(@PathVariable("id") Integer id) {
@@ -108,14 +71,13 @@ public class AppController {
 
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public String noteAdd() {
+    public String doGetNotePageAdd() {
         return LIST_ADD;
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String doPostNotePageAdd(Note note) throws IOException {
-        note.setCreatedDate(new Date());
-        noteDao.save(note);
+        noteService.save(note);
         return REDIRECT_TO_LIST;
     }
 
@@ -139,29 +101,20 @@ public class AppController {
     }
 
 
-    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+/*    @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public String delNotePage(Model model, @RequestParam("noteId") Integer noteId) {
         Note note = noteDao.getById(noteId);
         noteDao.delete(note);
         model.addAttribute("note", note);
         return REDIRECT_TO_LIST;
+    }*/
+
+
+    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    public String doGetNotePageDel(@RequestParam("noteId") Integer noteId) {
+        noteService.delete(noteId);
+        return REDIRECT_TO_LIST;
     }
-
-/*    @RequestMapping(value = "/JSON", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    List<Note> notePage() {
-        List<Note> noteAll = noteDao.getAll();
-        return noteAll;
-    }*/
-
-
-/*    @GetMapping("/JSON2")
-    public
-    @ResponseBody
-    List<Note> getNote2() {
-        return noteDao.getAll();
-    }*/
 
 
 }

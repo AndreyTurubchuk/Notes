@@ -26,14 +26,30 @@
 </script>
 
 <script type="text/javascript">
-    function confirmDeletion(id, name) {
-        if (confirm("Вы действительно хотите удалить " + name + " № " + id + " ?")) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+    $(function () {
+        $.getJSON('${pageContext.request.contextPath}/noteList/list', function (note) {
+            for (var i = 0; i < note.length; i++) {
+                $('#notes').append(
+                    '<tr>' +
+                    '<td>' + note[i].noteId + '</td>' +
+                    '<td> <a href="/noteList/edit?noteId=' + note[i].noteId + '">' + note[i].reading + '</a>' + '</td>' +
+                    '<td>' + note[i].text + '</td>' +
+                    '<td>' + new Date(note[i].createdDate) + '</td>' +
+                    '<td>' + new Date(note[i].updatedDate) + '</td>' +
+                    '<td> <a href="/noteList/delete?noteId=' + note[i].noteId + '">' +
+                    '<img src="/img/del.png" width="25" height="22"> </a>' +
+                    '</td>' +
+                    '</tr>'
+                );
+            }
+        });
+    });
 </script>
+<a title="Редактирование запроса"
+   href="/requestList/edit?requestId=${lists.requestId}&pageNumber=${pageNumber}&sortBy=${sortBy}&sortOrder=${sortOrder}&sortOrderHeader=${sortOrderHeader}">
+    <c:out value="${lists.title}"/>
+</a>
+
 
 <!-- Bootstrap 4 alpha CSS -->
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
@@ -50,9 +66,6 @@
 <div class="container-fluid">
     <div class="table">
         <a href="${root_url}noteList/add" class="create-btn btn-danger">НОВЫЙ</a>
-        <%--<input type="submit" id="myNote" value="ОБНОВИТЬ"/><br/><br/>--%>
-
-
         <div style="display: inline-block; width: 300px; float: right; margin-top: -5px;">
             <div class="input-group">
                 <input type="text" class="form-control" id="idSearch" placeholder="Поиск">
@@ -77,57 +90,9 @@
             <th style="width: 10%"><a href="#">УДАЛИТЬ</a></th>
         </tr>
         </thead>
-
-
-                <%--<c:forEach items="${notes}" var="lists" step="1" varStatus="loopStatus">--%>
-<%--                    <td>notes[1].noteId</td>
-        <tr class="${loopStatus.index % 2 == 0 ? 'alt' : ''}">
-                        <td><a href="#"                              >
-                            <img src="/WEB-INF/views/img/del.png" width="25" height="22"> </a></td>
-                    </tr>--%>
-                <%--</c:forEach>--%>
-
-        <%--
-                    <tr class="${loopStatus.index % 2 == 0 ? 'alt' : ''}">
-                        <td><c:out value="${lists.noteId}"/></td>
-                        <td>
-                            <a title="Редактирование запроса"
-                               href="/noteList/edit?noteId=${lists.noteId}">
-                                <c:out value="${lists.reading}"/>
-                            </a>
-                        </td>
-                        <td><c:out value="${lists.text}"/></td>
-                        <td><c:out value="${lists.createdDate}"/></td>
-                        <td><c:out value="${lists.updatedDate}"/></td>
-                        <td><a href="/noteList/delete?noteId=${lists.noteId}"
-                               onclick="return confirmDeletion(${lists.noteId}, 'заголовок')">
-                            <img src="/WEB-INF/views/img/del.png" width="25" height="22"> </a></td>
-                    </tr>--%>
-
-
     </table>
 </div>
 </body>
 
-<script type="text/javascript">
-    $(function () {
-        $.getJSON('${pageContext.request.contextPath}/noteList/list', function (note) {
-            for (var i = 0; i < note.length; i++) {
-                $('#notes').append(
-                    '<tr>' +
-                    '<td>' + note[i].noteId + '</td>' +
-                    '<td>' + note[i].reading + '</td>' +
-                    '<td>' + note[i].text + '</td>' +
-                    '<td>' + new Date(note[i].createdDate) + '</td>' +
-                    '<td>' + new Date(note[i].updatedDate) + '</td>' +
-                    '<td>' +
 
-                    '<td> <a href="/noteList/delete?noteId=' + note[i].noteId + '">' +
-                                    '<img src="/img/del.png" width="25" height="22"> </a></td>' +
-                '</tr>'
-                );
-            }
-        });
-    });
-</script>
 </html>
