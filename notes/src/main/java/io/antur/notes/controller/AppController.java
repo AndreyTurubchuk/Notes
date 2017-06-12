@@ -22,7 +22,7 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "noteList")
 public class AppController {
-    private static final String REDIRECT_TO_LIST = "redirect:/noteList/list";
+    private static final String REDIRECT_TO_LIST = "redirect:/";
     private static final String LIST_ADD = "noteAdd";
     private static final String LIST_EDIT = "noteEdit";
     private static final String LIST_VIEW = "noteList";

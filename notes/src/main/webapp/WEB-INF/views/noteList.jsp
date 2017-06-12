@@ -48,7 +48,7 @@
 <c:url var="root_url" value="/"/>
 
 <div class="container-fluid">
-    <div class="table" id="users">
+    <div class="table">
         <a href="${root_url}noteList/add" class="create-btn btn-danger">НОВЫЙ</a>
         <%--<input type="submit" id="myNote" value="ОБНОВИТЬ"/><br/><br/>--%>
 
@@ -79,23 +79,13 @@
         </thead>
 
 
-        <%--        <c:forEach items="${noteListAll}" var="lists" step="1" varStatus="loopStatus">
-                    <tr class="${loopStatus.index % 2 == 0 ? 'alt' : ''}">
-                        <td><c:out value="${lists.noteId}"/></td>
-                        <td>
-                            <a title="Редактирование запроса"
-                               href="/noteList/edit?noteId=${lists.noteId}">
-                                <c:out value="${lists.reading}"/>
-                            </a>
-                        </td>
-                        <td><c:out value="${lists.text}"/></td>
-                        <td><c:out value="${lists.createdDate}"/></td>
-                        <td><c:out value="${lists.updatedDate}"/></td>
-                        <td><a href="/noteList/delete?noteId=${lists.noteId}"
-                               onclick="return confirmDeletion(${lists.noteId}, 'заголовок')">
+                <%--<c:forEach items="${notes}" var="lists" step="1" varStatus="loopStatus">--%>
+<%--                    <td>notes[1].noteId</td>
+        <tr class="${loopStatus.index % 2 == 0 ? 'alt' : ''}">
+                        <td><a href="#"                              >
                             <img src="/WEB-INF/views/img/del.png" width="25" height="22"> </a></td>
-                    </tr>
-                </c:forEach>--%>
+                    </tr>--%>
+                <%--</c:forEach>--%>
 
         <%--
                     <tr class="${loopStatus.index % 2 == 0 ? 'alt' : ''}">
@@ -128,13 +118,16 @@
                     '<td>' + note[i].noteId + '</td>' +
                     '<td>' + note[i].reading + '</td>' +
                     '<td>' + note[i].text + '</td>' +
-                    '<td>' + note[i].createdDate + '</td>' +
-                    '<td>' + note[i].updatedDate + '</td>' +
-                    '<tr>'
+                    '<td>' + new Date(note[i].createdDate) + '</td>' +
+                    '<td>' + new Date(note[i].updatedDate) + '</td>' +
+                    '<td>' +
+
+                    '<td> <a href="/noteList/delete?noteId=' + note[i].noteId + '">' +
+                                    '<img src="/img/del.png" width="25" height="22"> </a></td>' +
+                '</tr>'
                 );
             }
         });
     });
 </script>
 </html>
-
