@@ -1,6 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%--
   Created by IntelliJ IDEA.
   User: AnTur
@@ -12,6 +14,7 @@
 <html>
 <head>
     <title>Заголовки</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 </head>
 <body>
 
@@ -45,9 +48,11 @@
 <c:url var="root_url" value="/"/>
 
 <div class="container-fluid">
-    <div class="table">
+    <div class="table" id="users">
         <a href="${root_url}noteList/add" class="create-btn btn-danger">НОВЫЙ</a>
-        <a href="${root_url}/JSON2" class="create-btn btn-danger">JSON</a>
+        <%--<input type="submit" id="myNote" value="ОБНОВИТЬ"/><br/><br/>--%>
+
+
         <div style="display: inline-block; width: 300px; float: right; margin-top: -5px;">
             <div class="input-group">
                 <input type="text" class="form-control" id="idSearch" placeholder="Поиск">
@@ -61,7 +66,7 @@
         </div>
     </div>
 
-    <table class="table">
+    <table class="table" id="notes">
         <thead>
         <tr>
             <th style="width: 5%">#</th>
@@ -74,25 +79,62 @@
         </thead>
 
 
+        <%--        <c:forEach items="${noteListAll}" var="lists" step="1" varStatus="loopStatus">
+                    <tr class="${loopStatus.index % 2 == 0 ? 'alt' : ''}">
+                        <td><c:out value="${lists.noteId}"/></td>
+                        <td>
+                            <a title="Редактирование запроса"
+                               href="/noteList/edit?noteId=${lists.noteId}">
+                                <c:out value="${lists.reading}"/>
+                            </a>
+                        </td>
+                        <td><c:out value="${lists.text}"/></td>
+                        <td><c:out value="${lists.createdDate}"/></td>
+                        <td><c:out value="${lists.updatedDate}"/></td>
+                        <td><a href="/noteList/delete?noteId=${lists.noteId}"
+                               onclick="return confirmDeletion(${lists.noteId}, 'заголовок')">
+                            <img src="/WEB-INF/views/img/del.png" width="25" height="22"> </a></td>
+                    </tr>
+                </c:forEach>--%>
 
-        <c:forEach items="${noteListAll}" var="lists" step="1" varStatus="loopStatus">
-            <tr class="${loopStatus.index % 2 == 0 ? 'alt' : ''}">
-                <td><c:out value="${lists.noteId}"/></td>
-                <td>
-                    <a title="Редактирование запроса"
-                       href="/noteList/edit?noteId=${lists.noteId}">
-                        <c:out value="${lists.reading}"/>
-                    </a>
-                </td>
-                <td><c:out value="${lists.text}"/></td>
-                <td><c:out value="${lists.createdDate}"/></td>
-                <td><c:out value="${lists.updatedDate}"/></td>
-                <td><a href="/noteList/delete?noteId=${lists.noteId}" onclick="return confirmDeletion(${lists.noteId}, 'заголовок')">
-                    <img src="/WEB-INF/views/img/del.png" width="25" height="22"> </a></td>
-            </tr>
-        </c:forEach>
+        <%--
+                    <tr class="${loopStatus.index % 2 == 0 ? 'alt' : ''}">
+                        <td><c:out value="${lists.noteId}"/></td>
+                        <td>
+                            <a title="Редактирование запроса"
+                               href="/noteList/edit?noteId=${lists.noteId}">
+                                <c:out value="${lists.reading}"/>
+                            </a>
+                        </td>
+                        <td><c:out value="${lists.text}"/></td>
+                        <td><c:out value="${lists.createdDate}"/></td>
+                        <td><c:out value="${lists.updatedDate}"/></td>
+                        <td><a href="/noteList/delete?noteId=${lists.noteId}"
+                               onclick="return confirmDeletion(${lists.noteId}, 'заголовок')">
+                            <img src="/WEB-INF/views/img/del.png" width="25" height="22"> </a></td>
+                    </tr>--%>
+
+
     </table>
 </div>
 </body>
+
+<script type="text/javascript">
+    $(function () {
+        $.getJSON('${pageContext.request.contextPath}/noteList/list', function (note) {
+            for (var i = 0; i < note.length; i++) {
+                $('#notes').append(
+                    '<tr>' +
+                    '<td>' + note[i].noteId + '</td>' +
+                    '<td>' + note[i].reading + '</td>' +
+                    '<td>' + note[i].text + '</td>' +
+                    '<td>' + note[i].createdDate + '</td>' +
+                    '<td>' + note[i].updatedDate + '</td>' +
+                    '<tr>'
+                );
+            }
+        });
+    });
+</script>
 </html>
 

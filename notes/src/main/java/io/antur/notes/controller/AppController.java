@@ -20,13 +20,12 @@ import java.util.Date;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "api")
+@RequestMapping(value = "noteList")
 public class AppController {
     private static final String REDIRECT_TO_LIST = "redirect:/noteList/list";
     private static final String LIST_ADD = "noteAdd";
     private static final String LIST_EDIT = "noteEdit";
     private static final String LIST_VIEW = "noteList";
-    private static final String LIST_VIEW2 = "home";
 
 
     @Autowired
@@ -49,11 +48,17 @@ public class AppController {
     }*/
 
 
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @RequestMapping("/list")
+    @ResponseBody
+    public List<Note> notes() {
+        return noteService.getNote();
+    }
+
+/*    @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String index(Model model) {
         model.addAttribute("noteListAll", noteDao.getAll());
-        return LIST_VIEW2;
-    }
+        return LIST_VIEW;
+    }*/
 
 /*    @GetMapping("/first2")
     public
