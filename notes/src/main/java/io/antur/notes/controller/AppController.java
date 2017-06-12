@@ -2,17 +2,16 @@ package io.antur.notes.controller;
 
 import io.antur.notes.dao.NoteDao;
 import io.antur.notes.entity.Note;
-//import io.antur.notes.service.NoteService;
+import io.antur.notes.entity.Person;
+import io.antur.notes.service.NoteService;
+import io.antur.notes.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
 //import javax.servlet.http.HttpServletRequest;
 //import com.google.gson.Gson;
@@ -21,32 +20,77 @@ import java.util.Date;
 import java.util.List;
 
 @Controller
-//@RequestMapping(value = "/noteList")
+@RequestMapping(value = "api")
 public class AppController {
     private static final String REDIRECT_TO_LIST = "redirect:/noteList/list";
     private static final String LIST_ADD = "noteAdd";
     private static final String LIST_EDIT = "noteEdit";
     private static final String LIST_VIEW = "noteList";
+    private static final String LIST_VIEW2 = "home";
 
 
     @Autowired
     NoteDao noteDao;
 
+    PersonService personService;
+    NoteService noteService;
+
+    @Autowired
+    public AppController(PersonService personService, NoteService noteService) {
+        this.personService = personService;
+        this.noteService = noteService;
+
+    }
+
+/*    @RequestMapping("person/random")
+    @ResponseBody
+    public Person randomPerson() {
+        return personService.getRandom();
+    }*/
+
+
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String index(Model model) {
         model.addAttribute("noteListAll", noteDao.getAll());
-        return LIST_VIEW;
+        return LIST_VIEW2;
     }
 
-    @GetMapping("/first")
+/*    @GetMapping("/first2")
+    public
+    @ResponseBody
+    List<Note> getNote() {
+        return noteDao.getAll();
+    }*/
+
+    @GetMapping("/first2")
     public
     @ResponseBody
     List<Note> getNote() {
         return noteDao.getAll();
     }
 
+/*    @GetMapping("/first3")
+    public ResponseEntity getNote() {
 
-    @GetMapping("/notes/{id}")
+        Note note = noteDao.getById(7);
+        if (note == null) {
+            return new ResponseEntity("No Note found for ID 7 ", HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity(note, HttpStatus.OK);
+    }*/
+
+    @RequestMapping("first4")
+    @ResponseBody
+    public Note randomPerson() {
+        return noteService.getNote2();
+    }
+
+
+
+
+
+/*    @GetMapping("/notes/{id}")
     public ResponseEntity getNote(@PathVariable("id") Integer id) {
 
         Note note = noteDao.getById(id);
@@ -55,8 +99,7 @@ public class AppController {
         }
 
         return new ResponseEntity(note, HttpStatus.OK);
-    }
-
+    }*/
 
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
@@ -99,48 +142,21 @@ public class AppController {
         return REDIRECT_TO_LIST;
     }
 
-    @RequestMapping(value = "/JSON", method = RequestMethod.GET)
+/*    @RequestMapping(value = "/JSON", method = RequestMethod.GET)
     public
     @ResponseBody
     List<Note> notePage() {
         List<Note> noteAll = noteDao.getAll();
         return noteAll;
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- /*   @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public ModelAndView getData() {
-        //return back to index.jsp
-        ModelAndView model = new ModelAndView("noteList");
-        model.addObject("headerTitle", "Список пользователей");
-        return model;
     }*/
 
 
- /*   @RequestMapping("/first")
-    public String firstPage(Model model) {
-        model.addAttribute("user", "myuser");
-        return "first";
+/*    @GetMapping("/JSON2")
+    public
+    @ResponseBody
+    List<Note> getNote2() {
+        return noteDao.getAll();
     }*/
 
-/*    @RequestMapping("/second")
-    public String secondPage(Model model, @ModelAttribute User modelUser) {
-        model.addAttribute("user", modelUser);
-        return "second";
-    }*/
 
 }
