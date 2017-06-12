@@ -1,0 +1,9 @@
+io.antur.notes.config
+io.antur.notes.config.application
+io.antur.notes.config.db
+io.antur.notes.controller
+io.antur.notes.dao
+io.antur.notes.dao.impl
+io.antur.notes.entity
+io.antur.notes.service
+io.antur.notes.service.Impl
