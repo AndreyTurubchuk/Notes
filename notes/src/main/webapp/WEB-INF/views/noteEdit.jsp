@@ -24,7 +24,7 @@
 
 <script type="text/javascript">
     $(function () {
-        $.getJSON('${pageContext.request.contextPath}/getEditJSON?noteId=${note.noteId}', function (note) {
+        $.getJSON('${pageContext.request.contextPath}/getJSON?noteId=${noteId}', function (note) {
             $('#noteId').val(note.noteId);
             $('#noteId2').text(note.noteId);
             $('#inputReading').val(note.reading);

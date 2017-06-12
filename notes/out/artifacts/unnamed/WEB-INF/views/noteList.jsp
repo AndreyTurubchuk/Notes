@@ -4,6 +4,7 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+
 <html>
 <head>
     <title>Заголовки</title>
@@ -12,8 +13,8 @@
 <body>
 
 <script type="text/javascript">
-    function onSearchClick() {
-        var searchStr = $("#idSearch").val();
+
+    function loadData(searchStr) {
         $.getJSON('${pageContext.request.contextPath}/list?findText=' + searchStr, function (note) {
             $('#notes').empty();
             for (var i = 0; i < note.length; i++) {
@@ -31,28 +32,23 @@
                 );
             }
         });
+
+
     }
+
+    function onSearchClick() {
+        var searchStr = $("#idSearch").val();
+        loadData(searchStr);
+    }
+
+
+    $(function () {
+        loadData('');
+    });
 </script>
 
 <script type="text/javascript">
-    $(function () {
-        $.getJSON('${pageContext.request.contextPath}/list', function (note) {
-            for (var i = 0; i < note.length; i++) {
-                $('#notes').append(
-                    '<tr>' +
-                    '<td>' + note[i].noteId + '</td>' +
-                    '<td> <a href="/edit?noteId=' + note[i].noteId + '">' + note[i].reading + '</a>' + '</td>' +
-                    '<td>' + note[i].text + '</td>' +
-                    '<td>' + new Date(note[i].createdDate) + '</td>' +
-                    '<td>' + new Date(note[i].updatedDate) + '</td>' +
-                    '<td> <a href="/delete?noteId=' + note[i].noteId + '">' +
-                    '<img src="/img/del.png"> </a>' +
-                    '</td>' +
-                    '</tr>'
-                );
-            }
-        });
-    });
+
 
 </script>
 
