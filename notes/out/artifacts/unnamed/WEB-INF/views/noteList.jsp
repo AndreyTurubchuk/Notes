@@ -1,35 +1,55 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: AnTur
-  Date: 04.06.2017
-  Time: 22:44
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 
 <html>
 <head>
     <title>Заголовки</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 </head>
 <body>
 
 <script type="text/javascript">
+
+    function loadData(searchStr) {
+        $.getJSON('${pageContext.request.contextPath}/list?findText=' + searchStr, function (note) {
+            $('#notes').empty();
+            for (var i = 0; i < note.length; i++) {
+                $('#notes').append(
+                    '<tr>' +
+                    '<td>' + note[i].noteId + '</td>' +
+                    '<td> <a href="/edit?noteId=' + note[i].noteId + '">' + note[i].reading + '</a>' + '</td>' +
+                    '<td>' + note[i].text + '</td>' +
+                    '<td>' + new Date(note[i].createdDate) + '</td>' +
+                    '<td>' + new Date(note[i].updatedDate) + '</td>' +
+                    '<td> <a href="/delete?noteId=' + note[i].noteId + '">' +
+                    '<img src="/img/del.png"> </a>' +
+                    '</td>' +
+                    '</tr>'
+                );
+            }
+        });
+
+
+    }
+
     function onSearchClick() {
         var searchStr = $("#idSearch").val();
-        document.location.href = "/noteList/list?findText=" + searchStr;
+        loadData(searchStr);
     }
+
+
+    $(function () {
+        loadData('');
+    });
 </script>
 
 <script type="text/javascript">
-    function confirmDeletion(id, name) {
-        if (confirm("Вы действительно хотите удалить " + name + " № " + id + " ?")) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+
+
 </script>
 
 <!-- Bootstrap 4 alpha CSS -->
@@ -42,24 +62,23 @@
     }
 </style>
 
-<c:url var="root_url" value="/"/>
-
 <div class="container-fluid">
     <div class="table">
-        <a href="${root_url}noteList/add" class="create-btn btn-danger">НОВЫЙ</a>
-        <a href="${root_url}/JSON2" class="create-btn btn-danger">JSON</a>
+        <a href="/add" class="create-btn btn-danger">НОВЫЙ</a>
         <div style="display: inline-block; width: 300px; float: right; margin-top: -5px;">
             <div class="input-group">
                 <input type="text" class="form-control" id="idSearch" placeholder="Поиск">
                 <div class="input-group-btn">
                     <a class="btn btn-default" title="Поиск"
                        href="#" onclick="onSearchClick(); return false;" role="button">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                         <i class="glyphicon glyphicon-search"></i>
                     </a>
                 </div>
             </div>
         </div>
     </div>
+
 
     <table class="table">
         <thead>
@@ -72,27 +91,11 @@
             <th style="width: 10%"><a href="#">УДАЛИТЬ</a></th>
         </tr>
         </thead>
-
-
-
-        <c:forEach items="${noteListAll}" var="lists" step="1" varStatus="loopStatus">
-            <tr class="${loopStatus.index % 2 == 0 ? 'alt' : ''}">
-                <td><c:out value="${lists.noteId}"/></td>
-                <td>
-                    <a title="Редактирование запроса"
-                       href="/noteList/edit?noteId=${lists.noteId}">
-                        <c:out value="${lists.reading}"/>
-                    </a>
-                </td>
-                <td><c:out value="${lists.text}"/></td>
-                <td><c:out value="${lists.createdDate}"/></td>
-                <td><c:out value="${lists.updatedDate}"/></td>
-                <td><a href="/noteList/delete?noteId=${lists.noteId}" onclick="return confirmDeletion(${lists.noteId}, 'заголовок')">
-                    <img src="/WEB-INF/views/img/del.png" width="25" height="22"> </a></td>
-            </tr>
-        </c:forEach>
+        <tbody id="notes">
+        </tbody>
     </table>
 </div>
 </body>
-</html>
 
+
+</html>

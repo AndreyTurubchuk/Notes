@@ -28,7 +28,7 @@
     </style>
 
     <div class="container-fluid">
-        <sf:form method="post" id="noteForm" action="/noteList/add">
+        <sf:form method="post" id="noteForm" action="/add">
             <div class="form-group">
                 <label for="inputReading" class="control-label col-sm-3">Название заголовка</label>
                 <input name="reading" id="inputReading" class="form-control" placeholder="Название заголовка" required
@@ -42,7 +42,7 @@
             <div class="form-group">
                 <div class="control-label col-sm-3"></div>
                 <a href="#" onclick="document.forms['noteForm'].submit();" class="btn-save pull-left">СОХРАНИТЬ</a>
-                <a href="/noteList/list"
+                <a href="/"
                    class="btn-close pull-right">ЗАКРЫТЬ</a>
             </div>
         </sf:form>

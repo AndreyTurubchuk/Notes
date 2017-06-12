@@ -26,13 +26,12 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         viewResolver.setPrefix("/WEB-INF/views/");
         viewResolver.setSuffix(".jsp");
         viewResolver.setContentType("text/html; charset-utf-8");
-    //    viewResolver.setOrder(1);
         return viewResolver;
     }
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("home");
+        registry.addViewController("/").setViewName("noteList");
     }
 
     @Override
