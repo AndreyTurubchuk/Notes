@@ -1,3 +1,7 @@
+/*Сущность "заметки"
+reading - название заметки
+text - текст заметки*/
+
 package io.antur.notes.entity;
 
 import javax.persistence.*;

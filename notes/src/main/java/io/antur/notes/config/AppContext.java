@@ -1,7 +1,5 @@
 package io.antur.notes.config;
 
-
-import io.antur.notes.config.db.HibernateConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,11 +11,9 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 @Configuration
 @PropertySource(value = {"classpath:util.properties"})
 public class AppContext {
-    @Autowired
-    Environment environment;
 
     @Autowired
-    HibernateConfig hibernateConfig;
+    Environment environment;
 
     @Bean
     public DriverManagerDataSource dataSource() {
