@@ -7,7 +7,7 @@ import javax.persistence.TemporalType;
 import java.util.Date;
 
 @MappedSuperclass
-public abstract class AuditableEntity {
+public abstract class GeneralEntity {
 
     @Column(name = "CREATED_DATE")
     @Temporal(TemporalType.TIMESTAMP)
@@ -17,7 +17,7 @@ public abstract class AuditableEntity {
     @Temporal(TemporalType.TIMESTAMP)
     protected Date updatedDate;
 
-    public AuditableEntity() {
+    public GeneralEntity() {
         this.createdDate = new Date();
         this.updatedDate = new Date();
     }
