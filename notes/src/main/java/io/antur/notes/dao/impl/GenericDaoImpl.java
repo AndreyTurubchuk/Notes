@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Transactional
-public class GenericDaoImpl<T,K extends Serializable> implements GenericDao<T,K> {
+public class GenericDaoImpl<T, K extends Serializable> implements GenericDao<T, K> {
     private Class<T> type;
 
     @Autowired
@@ -26,20 +26,20 @@ public class GenericDaoImpl<T,K extends Serializable> implements GenericDao<T,K>
     }
 
 
-   @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
     public K save(T entity) {
         return (K) getSession().save(entity);
     }
 
-   public void update(T entity) {
+    public void update(T entity) {
         getSession().update(entity);
     }
 
-   public void saveOrUpdate(T entity) {
+    public void saveOrUpdate(T entity) {
         getSession().saveOrUpdate(entity);
     }
 
-   public void delete(T entity) {
+    public void delete(T entity) {
         getSession().delete(entity);
     }
 
@@ -47,15 +47,22 @@ public class GenericDaoImpl<T,K extends Serializable> implements GenericDao<T,K>
         return getSession().get(type, key);
     }
 
-   public List<T> getAll() {
-        Query query = getSession().createQuery(String.format("from %s", type.getName()));
+    //получение всего списка из БД
+    @SuppressWarnings("unchecked")
+    public List<T> getAll() {
+        org.hibernate.query.Query query = getSession().createQuery(String.format("from %s", type.getName()));
         return query.list();
     }
 
+    //поиск в БД по тексту "findText"
+    //принять от пользователя тексовое значение поиска findText
+    //сделать запрос к БД - найти все строки, в которых "reading" или "text" равно "findText"
+    // вернуть список
+    @SuppressWarnings("unchecked")
     public List<T> getAll(String findText) {
         org.hibernate.query.Query query = getSession().createQuery(String.format("FROM %s f WHERE f.reading like ? OR f.text like ?", type.getName()));
-        query.setParameter(0, "%"+findText+"%");
-        query.setParameter(1, "%"+findText+"%");
+        query.setParameter(0, "%" + findText + "%");
+        query.setParameter(1, "%" + findText + "%");
         return query.list();
     }
 }

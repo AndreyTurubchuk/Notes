@@ -1,40 +1,67 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%--
-  Created by IntelliJ IDEA.
-  User: AnTur
-  Date: 04.06.2017
-  Time: 22:44
-  To change this template use File | Settings | File Templates.
+ Главная табличная форма
+ Новая заметка - нажатие "НОВЫй"
+ Редактирование - нажатие на заголовке заметки
+ Удаление - нажатие на значке "корзина"
+ Поиск заметки - внести значение поиска и нажать на кнопку "Поиск"
 --%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 
 <html>
 <head>
     <title>Заголовки</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 </head>
 <body>
 
 <script type="text/javascript">
+
+    // Ajax
+    // фукнкция заполнения табличных данных на форме noteList
+    // парсинг данных, данные приходят в формате JSON
+    // получаем от сервера список из БД по поисковому значению searchStr
+    // если searchStr пусто - выводим всю таблицу, иначе фильтр по searchStr
+        function loadData(searchStr) {
+        $.getJSON('${pageContext.request.contextPath}/list?findText=' + searchStr, function (note) {
+            $('#notes').empty();
+            for (var i = 0; i < note.length; i++) {
+                $('#notes').append(
+                    '<tr>' +
+                    '<td>' + note[i].noteId + '</td>' +
+                    '<td> <a title="Редактирование заметки" href="/edit?noteId=' + note[i].noteId + '">' + note[i].reading + '</a>' + '</td>' +
+                    '<td>' + note[i].text + '</td>' +
+                    '<td>' + new Date(note[i].createdDate) + '</td>' +
+                    '<td>' + new Date(note[i].updatedDate) + '</td>' +
+                    '<td> <a href="/delete?noteId=' + note[i].noteId + '">' +
+                    '<img src="/img/del.png"> </a>' +
+                    '</td>' +
+                    '</tr>'
+                );
+            }
+        });
+    }
+
+    //функция поиска, стартует при нажатии кнопки "поиск" на форме noteList
+    //idSearch - значение переменной поиска
     function onSearchClick() {
         var searchStr = $("#idSearch").val();
-        document.location.href = "/noteList/list?findText=" + searchStr;
+        loadData(searchStr);
     }
+
+    //функция заполнения данных формы noteList, стартует автоматически при загрузке
+    $(function () {
+        loadData('');
+    });
 </script>
 
-<script type="text/javascript">
-    function confirmDeletion(id, name) {
-        if (confirm("Вы действительно хотите удалить " + name + " № " + id + " ?")) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-</script>
-
-<!-- Bootstrap 4 alpha CSS -->
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
-      integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+<!-- Bootstrap -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
 <style>
     body {
@@ -42,12 +69,11 @@
     }
 </style>
 
-<c:url var="root_url" value="/"/>
 
+<%--// форма добавления заметки и поиска данных по значению --%>
 <div class="container-fluid">
     <div class="table">
-        <a href="${root_url}noteList/add" class="create-btn btn-danger">НОВЫЙ</a>
-        <a href="${root_url}/JSON2" class="create-btn btn-danger">JSON</a>
+        <a href="/add" class="create-btn btn-danger">НОВЫЙ</a>
         <div style="display: inline-block; width: 300px; float: right; margin-top: -5px;">
             <div class="input-group">
                 <input type="text" class="form-control" id="idSearch" placeholder="Поиск">
@@ -61,6 +87,8 @@
         </div>
     </div>
 
+
+    <%--главная таблица--%>
     <table class="table">
         <thead>
         <tr>
@@ -72,27 +100,11 @@
             <th style="width: 10%"><a href="#">УДАЛИТЬ</a></th>
         </tr>
         </thead>
-
-
-
-        <c:forEach items="${noteListAll}" var="lists" step="1" varStatus="loopStatus">
-            <tr class="${loopStatus.index % 2 == 0 ? 'alt' : ''}">
-                <td><c:out value="${lists.noteId}"/></td>
-                <td>
-                    <a title="Редактирование запроса"
-                       href="/noteList/edit?noteId=${lists.noteId}">
-                        <c:out value="${lists.reading}"/>
-                    </a>
-                </td>
-                <td><c:out value="${lists.text}"/></td>
-                <td><c:out value="${lists.createdDate}"/></td>
-                <td><c:out value="${lists.updatedDate}"/></td>
-                <td><a href="/noteList/delete?noteId=${lists.noteId}" onclick="return confirmDeletion(${lists.noteId}, 'заголовок')">
-                    <img src="/WEB-INF/views/img/del.png" width="25" height="22"> </a></td>
-            </tr>
-        </c:forEach>
+        <tbody id="notes">
+        </tbody>
     </table>
 </div>
 </body>
-</html>
 
+
+</html>

@@ -1,14 +1,13 @@
 io\antur\notes\dao\impl\NoteDaoImpl.class
 io\antur\notes\config\AppContext.class
 io\antur\notes\dao\GenericDao.class
+io\antur\notes\service\Impl\NoteServiceImpl.class
 io\antur\notes\config\application\WebConfig.class
-io\antur\notes\service\Impl\PersonServiceImpl.class
-io\antur\notes\entity\AuditableEntity.class
 io\antur\notes\config\application\WebAppInitializer.class
+io\antur\notes\service\NoteService.class
 io\antur\notes\dao\impl\GenericDaoImpl.class
 io\antur\notes\dao\NoteDao.class
-io\antur\notes\service\PersonService.class
 io\antur\notes\config\db\HibernateConfig.class
+io\antur\notes\entity\GeneralEntity.class
 io\antur\notes\entity\Note.class
-io\antur\notes\entity\Person.class
 io\antur\notes\controller\AppController.class

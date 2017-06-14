@@ -1,9 +1,5 @@
 <%--
-  Created by IntelliJ IDEA.
-  User: AnTur
-  Date: 06.06.2017
-  Time: 20:42
-  To change this template use File | Settings | File Templates.
+  Форма редактирования заметки
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
@@ -22,7 +18,14 @@
 </head>
 <body>
 
+
+
+
 <script type="text/javascript">
+    // Ajax
+    // фукнкция заполнения табличных данных на форме noteEdit
+    // парсинг данных, данные приходят в формате JSON
+    // получаем от сервера список из БД по id
     $(function () {
         $.getJSON('${pageContext.request.contextPath}/getJSON?noteId=${noteId}', function (note) {
             $('#noteId').val(note.noteId);

@@ -52,6 +52,9 @@ public class AppController {
         return LIST_EDIT;
     }
 
+    // получение записи из БД по ID, передача на клиента в виде JSON
+    // получается костыль, так как при редактировании приходится передавать на клиента
+    // id записи, которую хотим редактировать, а потом по этому же ID получаем данные в формате JSON
     @RequestMapping(value = "/getJSON", params = "noteId")
     @ResponseBody
     public Note getJSON(@RequestParam("noteId") Integer noteId) {

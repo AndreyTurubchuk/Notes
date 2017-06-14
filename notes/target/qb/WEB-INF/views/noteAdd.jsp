@@ -1,9 +1,5 @@
 <%--
-  Created by IntelliJ IDEA.
-  User: AnTur
-  Date: 06.06.2017
-  Time: 6:46
-  To change this template use File | Settings | File Templates.
+  Форма добавления заметки
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
@@ -28,7 +24,7 @@
     </style>
 
     <div class="container-fluid">
-        <sf:form method="post" id="noteForm" action="/noteList/add">
+        <sf:form method="post" id="noteForm" action="/add">
             <div class="form-group">
                 <label for="inputReading" class="control-label col-sm-3">Название заголовка</label>
                 <input name="reading" id="inputReading" class="form-control" placeholder="Название заголовка" required
@@ -42,7 +38,7 @@
             <div class="form-group">
                 <div class="control-label col-sm-3"></div>
                 <a href="#" onclick="document.forms['noteForm'].submit();" class="btn-save pull-left">СОХРАНИТЬ</a>
-                <a href="/noteList/list"
+                <a href="/"
                    class="btn-close pull-right">ЗАКРЫТЬ</a>
             </div>
         </sf:form>
